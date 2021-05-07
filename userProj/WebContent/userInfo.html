@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>userInfo.html</title>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+	$(document).ready(function() {
+		//db 데이터 화면 출력
+		$.ajax({
+			url: 'getUserListServlet',
+			dataType: 'json',
+			success: function(result) {
+				// list > table 출력
+				let tbl = $('<table id="tbl"/>').attr('border', '1');
+				let tr = $('<tr />');
+				
+				tbl.append(getTitle());
+				
+				for (var i = 0; i < result.length; i++) {
+				//console.log(result[i]);
+					let tr = $('<tr />');
+					
+					let btn = $('<button />').html('수정');
+					
+					let idtext = $('<input type="text" value='+result[i].id+' />');
+					let nametext = $('<input type="text" value='+result[i].name+' />');
+					let gentext = $('<input type="text" value='+result[i].gender+' />');
+					let passtext = $('<input type="text" value='+result[i].pass+' />');
+					let photext = $('<input type="text" value='+result[i].phone+' />');
+					
+					tr.append(
+						$('<td />').append(idtext),
+						$('<td />').append(nametext),
+						$('<td />').append(photext),
+						$('<td />').append(gentext),
+						$('<td />').append(passtext),
+						$('<td />').append(btn)
+					);
+					tbl.append(tr);
+					
+				}
+				$('#show').append(tbl);
+			},
+			error: function(err) {
+				console.log(err);
+			}
+		});
+		
+		// 한 것 입력
+		$('#frm').submit(function (e) {
+			e.preventDefault();
+			$.ajax({
+				url: $('#frm').attr('action'),
+				type: 'post',
+				dataType: 'text',
+				data: 'id=' + $('#id').val() + '&name=' + $('#name').val() + '&pass=' + $('#pass').val() + '&phone=' + $('#phone').val() + '&gender=' + $('input[name="gender"]:checked').val(),
+				success: function(result) {
+					console.log(result);
+					let btn = $('<button />').html('수정');
+					
+					let idtext = $('<input type="text" value='+$('#id').val()+' />');
+					let nametext = $('<input type="text" value='+$('#name').val()+' />');
+					let gentext = $('<input type="text" value='+$('input[name="gender"]:checked').val()+' />');
+					let passtext = $('<input type="text" value='+$('#pass').val()+' />');
+					let photext = $('<input type="text" value='+$('#phone').val()+' />');
+					
+					let tr = $('<tr />').append(
+							$('<td />').append(idtext),
+							$('<td />').append(nametext),
+							$('<td />').append(photext),
+							$('<td />').append(gentext),
+							$('<td />').append(passtext),
+							$('<td />').append(btn)
+					);
+					$('#tbl').append(tr);
+				},
+				error: function(err) {
+					console.log(err);	
+				}
+			});
+			
+		});
+		
+		function getTitle() {
+			let title = $('<tr />');
+			title.append(
+				$('<th />').html('회원번호'),
+				$('<th />').html('이름'),
+				$('<th />').html('연락처'),
+				$('<th />').html('성별'),
+				$('<th />').html('비밀번호'),
+				$('<th />').html('기능')
+			);
+			return title;
+		}
+	});
+</script>
+<style>
+	#frmtbl {
+		border-collapse: collapse;
+	}
+	#show {
+		padding-top: 15px;
+	}
+	#frmtbl > td {
+		padding: 5px;
+	}
+	
+</style>
+</head>
+<body>
+	<form id='frm' action='userInsertServlet' method='post'>
+		<table border="1" id="frmtbl">
+			<tr>
+				<td width="100px"><label for="id">사용ID</label></td>
+				<td width="200px" align="center"><input type="text" name="id" id="id"></td>
+			</tr>
+			<tr>
+				<td><label for="name">이름</label></td>
+				<td align="center"><input type="text" name="name" id="name"></td>
+			</tr>
+						<tr>
+				<td><label for="pass">비밀번호</label></td>
+				<td align="center"><input type="text" name="pass" id="pass"></td>
+			</tr>
+						<tr>
+				<td><label for="phone">연락처</label></td>
+				<td align="center"><input type="text" name="phone" id="phone"></td>
+			</tr>
+						<tr>
+				<td><label for="gender">성별</label></td>
+				<td><input type='radio' value="남성" name="gender">남성 <input type='radio' value="여성" name="gender">여성</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" value="등 록"> <input type="reset" value="취 소"></td>
+			</tr>
+		</table>
+	</form>
+	<div id='show'></div>
+</body>
+</html>
