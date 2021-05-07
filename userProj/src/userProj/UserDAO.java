@@ -62,6 +62,31 @@ public class UserDAO {
 
 		return r;
 	}
+	
+	public boolean updateUser(UserVO vo) {
+		conn = DBCon.getConnect();
+		String sql = "update file_board set user_name=?, user_pass=?, user_gender=?, user_phone=? where user_id=?";
+		
+		int Cnt = 0;
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getName());
+			psmt.setString(2, vo.getPass());
+			psmt.setString(3, vo.getGender());
+			psmt.setString(4, vo.getPhone());
+			psmt.setString(5, vo.getId());
+			
+			Cnt = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return Cnt == 0? false : true;
+	}
 
 	private void close() {
 		if (rs != null) {

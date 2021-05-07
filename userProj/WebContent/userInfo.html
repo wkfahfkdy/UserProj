@@ -12,16 +12,16 @@
 			dataType: 'json',
 			success: function(result) {
 				// list > table 출력
-				let tbl = $('<table id="tbl"/>').attr('border', '1');
+				let tbl = $('<table id="tbl" />').attr('border', '1');
 				let tr = $('<tr />');
 				
 				tbl.append(getTitle());
 				
 				for (var i = 0; i < result.length; i++) {
 				//console.log(result[i]);
+					let btn = $('<button id="btn" />').html('수정');
 					let tr = $('<tr />');
 					
-					let btn = $('<button />').html('수정');
 					
 					let idtext = $('<input type="text" value='+result[i].id+' />');
 					let nametext = $('<input type="text" value='+result[i].name+' />');
@@ -38,6 +38,7 @@
 						$('<td />').append(btn)
 					);
 					tbl.append(tr);
+					btn.click(upBtnFnc);
 					
 				}
 				$('#show').append(tbl);
@@ -57,7 +58,7 @@
 				data: 'id=' + $('#id').val() + '&name=' + $('#name').val() + '&pass=' + $('#pass').val() + '&phone=' + $('#phone').val() + '&gender=' + $('input[name="gender"]:checked').val(),
 				success: function(result) {
 					console.log(result);
-					let btn = $('<button />').html('수정');
+					let btn = $('<button id="btn" />').html('수정');
 					
 					let idtext = $('<input type="text" value='+$('#id').val()+' />');
 					let nametext = $('<input type="text" value='+$('#name').val()+' />');
@@ -74,6 +75,7 @@
 							$('<td />').append(btn)
 					);
 					$('#tbl').append(tr);
+					btn.click(upBtnFnc);
 				},
 				error: function(err) {
 					console.log(err);	
@@ -81,6 +83,31 @@
 			});
 			
 		});
+		
+		// 수정 버튼 누를 시
+		function upBtnFnc() {
+			console.log($(this).parent().parent().children().eq(0).html(1));
+			let id = $(this).parent().parent().children().eq(0).html();
+			let name = $(this).parent().parent().children().eq(1).html();
+			let phone = $(this).parent().parent().children().eq(2).html();
+			let gender = $(this).parent().parent().children().eq(3).html();
+			let pass = $(this).parent().parent().children().eq(4).html();
+			
+			$.ajax({
+				url: 'updateUser',
+				type: 'post',
+				dataType: 'text',
+				data: 'id=' + id + '&name=' + name + '&phone=' + phone + '&gender=' + gender + '&pass=' + pass,
+				success: function(result) {
+					console.log('ㅇ');
+				},
+				error: function(err) {
+					console.log(err);
+				}
+				
+			});
+			
+		}
 		
 		function getTitle() {
 			let title = $('<tr />');
@@ -103,10 +130,6 @@
 	#show {
 		padding-top: 15px;
 	}
-	#frmtbl > td {
-		padding: 5px;
-	}
-	
 </style>
 </head>
 <body>
