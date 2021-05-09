@@ -86,7 +86,7 @@
 		
 		// 수정 버튼 누를 시
 		function upBtnFnc() {
-			console.log($(this).parent().parent().children().eq(0).html(1));
+			console.log($(this).parent().parent().children().eq(0).eq(0).html());
 			let id = $(this).parent().parent().children().eq(0).html();
 			let name = $(this).parent().parent().children().eq(1).html();
 			let phone = $(this).parent().parent().children().eq(2).html();

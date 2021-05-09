@@ -65,7 +65,7 @@ public class UserDAO {
 	
 	public boolean updateUser(UserVO vo) {
 		conn = DBCon.getConnect();
-		String sql = "update file_board set user_name=?, user_pass=?, user_gender=?, user_phone=? where user_id=?";
+		String sql = "update user_temp set user_name=?, user_pass=?, user_gender=?, user_phone=? where user_id=?";
 		
 		int Cnt = 0;
 		
@@ -78,7 +78,7 @@ public class UserDAO {
 			psmt.setString(5, vo.getId());
 			
 			Cnt = psmt.executeUpdate();
-			
+			System.out.println(Cnt + "건 수정");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
