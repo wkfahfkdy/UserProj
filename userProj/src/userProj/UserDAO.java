@@ -65,7 +65,7 @@ public class UserDAO {
 	
 	public boolean updateUser(UserVO vo) {
 		conn = DBCon.getConnect();
-		String sql = "update file_board set user_name=?, user_pass=?, user_gender=?, user_phone=? where user_id=?";
+		String sql = "update user_temp set user_name=?, user_pass=?, user_gender=?, user_phone=? where user_id=?";
 		
 		int Cnt = 0;
 		

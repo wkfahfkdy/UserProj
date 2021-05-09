@@ -86,12 +86,12 @@
 		
 		// 수정 버튼 누를 시
 		function upBtnFnc() {
-			console.log($(this).parent().parent().children().eq(0).html(1));
-			let id = $(this).parent().parent().children().eq(0).html();
-			let name = $(this).parent().parent().children().eq(1).html();
-			let phone = $(this).parent().parent().children().eq(2).html();
-			let gender = $(this).parent().parent().children().eq(3).html();
-			let pass = $(this).parent().parent().children().eq(4).html();
+			console.log($(this).parent().parent().children().eq(1).children().eq(0).val());
+			let id = $(this).parent().parent().children().eq(0).children().eq(0).val();
+			let name = $(this).parent().parent().children().eq(1).children().eq(0).val();
+			let phone = $(this).parent().parent().children().eq(2).children().eq(0).val();
+			let gender = $(this).parent().parent().children().eq(3).children().eq(0).val();
+			let pass = $(this).parent().parent().children().eq(4).children().eq(0).val();
 			
 			$.ajax({
 				url: 'updateUser',
