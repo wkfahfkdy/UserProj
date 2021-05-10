@@ -52,7 +52,7 @@ public class UserDAO {
 			psmt.setString(4, vo.getGender());
 			psmt.setString(5, vo.getPass());
 			r = psmt.executeUpdate();
-			System.out.println(r + " 건 입력");
+			System.out.println(r + "건 입력");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -78,6 +78,7 @@ public class UserDAO {
 			psmt.setString(5, vo.getId());
 			
 			Cnt = psmt.executeUpdate();
+			System.out.println(Cnt + "건 수정");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

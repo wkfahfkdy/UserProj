@@ -54,10 +54,12 @@
 			$.ajax({
 				url: $('#frm').attr('action'),
 				type: 'post',
-				dataType: 'text',
+				dataType: 'text',	// dataType:'json' : parse 오류 난 이유 
+									// = 아래 result.~~ 로 json 타입을 쓰지를 않아서 오류라고 나온것
+									// 그래서 사실상 dataType 을 안적어도 될거라고 하셨음. 내가 json 만들고 안써서
 				data: 'id=' + $('#id').val() + '&name=' + $('#name').val() + '&pass=' + $('#pass').val() + '&phone=' + $('#phone').val() + '&gender=' + $('input[name="gender"]:checked').val(),
 				success: function(result) {
-					console.log(result);
+					//console.log(result);
 					let btn = $('<button id="btn" />').html('수정');
 					
 					let idtext = $('<input type="text" value='+$('#id').val()+' />');
@@ -86,7 +88,7 @@
 		
 		// 수정 버튼 누를 시
 		function upBtnFnc() {
-			console.log($(this).parent().parent().children().eq(1).children().eq(0).val());
+			//console.log($(this).parent().parent().children().eq(1).children().eq(0).val());
 			let id = $(this).parent().parent().children().eq(0).children().eq(0).val();
 			let name = $(this).parent().parent().children().eq(1).children().eq(0).val();
 			let phone = $(this).parent().parent().children().eq(2).children().eq(0).val();
