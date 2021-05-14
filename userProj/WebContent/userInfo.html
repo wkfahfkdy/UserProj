@@ -95,6 +95,15 @@
 			let gender = $(this).parent().parent().children().eq(3).children().eq(0).val();
 			let pass = $(this).parent().parent().children().eq(4).children().eq(0).val();
 			
+			/*
+			console.log($(this).parent().parent().children().eq(0).eq(0).html());
+			let id = $(this).parent().parent().children().eq(0).html();
+			let name = $(this).parent().parent().children().eq(1).html();
+			let phone = $(this).parent().parent().children().eq(2).html();
+			let gender = $(this).parent().parent().children().eq(3).html();
+			let pass = $(this).parent().parent().children().eq(4).html();
+			*/
+			
 			$.ajax({
 				url: 'updateUser',
 				type: 'post',
